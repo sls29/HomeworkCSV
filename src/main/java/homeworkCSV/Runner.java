@@ -9,11 +9,11 @@ public class Runner {
     int number;
     String name;
     String country;
-    Integer time;
+    String time;
     String firstShooting;
     String secondShooting;
     String thirdShooting;
-    public Runner(int number, String name, String country, Integer time,
+    public Runner(int number, String name, String country, String time,
                   String firstShooting, String secondShooting, String thirdShooting) {
         this.number = number;
         this.name = name;
@@ -24,5 +24,8 @@ public class Runner {
         this.thirdShooting = thirdShooting;
     }
 
+    public String toString(){
+        return number + name + country;
+    }
 }
 
