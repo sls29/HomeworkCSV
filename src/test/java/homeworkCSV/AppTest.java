@@ -1,4 +1,4 @@
-package org.example;
+package homeworkCSV;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
