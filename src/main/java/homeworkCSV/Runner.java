@@ -6,15 +6,15 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Runner {
-    int number;
-    String name;
-    String country;
-    String time;
-    String firstShooting;
-    String secondShooting;
-    String thirdShooting;
-    public Runner(int number, String name, String country, String time,
-                  String firstShooting, String secondShooting, String thirdShooting) {
+    Integer number;
+    Object name;
+    Object country;
+    Object time;
+    Object firstShooting;
+    Object secondShooting;
+    Object thirdShooting;
+    public Runner(Integer number, Object name, Object country, Object time,
+                  Object firstShooting, Object secondShooting, Object thirdShooting) {
         this.number = number;
         this.name = name;
         this.country = country;
@@ -25,7 +25,10 @@ public class Runner {
     }
 
     public String toString(){
-        return number + name + country;
+        System.out.println(number);
+        System.out.println(name);
+        System.out.println(firstShooting);
+    return null;
     }
 }
 
