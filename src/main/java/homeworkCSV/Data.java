@@ -9,8 +9,11 @@ public class Data {
     ArrayList<String> dataArray = new ArrayList<>();
     LinkedList<String> runners = new LinkedList<>();
     LinkedList<Runner> runnersR = new LinkedList<>();
-    HashMap<String, String> runnersTime = new HashMap<>();
-    LinkedList<Integer> shootingResults = new LinkedList<>();
+    HashMap<String, Integer> runnersMap = new HashMap<>();
+    ArrayList<Integer> timeInSeconds = new ArrayList<>();
+    ArrayList<Integer> shootingResults = new ArrayList<>();
+    ArrayList<Integer> totalTime = new ArrayList<>();
+    ArrayList<String> runnersA = new ArrayList<>();
 
     public void getDataFromCSV() throws FileNotFoundException {
 
@@ -27,36 +30,12 @@ public class Data {
             dataArray.add(scanner.nextLine());
         }
         scanner.close();
-        System.out.println(dataArray);
-        System.out.println(dataArray.size());
 
         for (String s : dataArray) {
             String[] runner = s.split(",");
             runners.add(Arrays.toString(runner));
             runnersR.add(new Runner(Integer.parseInt(runner[0]), runner[1], runner[2],
-                    runner[3], runner[4], runner[5], runner[6]));
-        }
-//        System.out.println(runners.size());
-//        System.out.println(runners);
-//        System.out.println(runnersR.size());
-//        System.out.println(runnersR);
-    }
-
-    public void showRunners() {
-        for (Runner nextRunner : runnersR) {
-            System.out.println(nextRunner.name + ": " + nextRunner.country);
-        }
-    }
-
-    public void getRunnersTime() {
-        for (Runner nextRunner : runnersR) {
-            runnersTime.put((String) nextRunner.name, (String) nextRunner.time);
-        }
-    }
-
-    public void showRunnersTime() {
-        for (String i : runnersTime.values()) {
-            System.out.println(i);
+                    runner[3], runner[4], runner[5], runner[6], null));
         }
     }
 
@@ -64,9 +43,9 @@ public class Data {
         for (Runner nextRunner : runnersR) {
             Integer minutes = Integer.parseInt(((String) nextRunner.time).substring(0, 2));
             Integer secundes = Integer.parseInt(((String) nextRunner.time).substring(3));
-            Integer timeInSeconds = (minutes * 60) + secundes;
-            System.out.println(timeInSeconds);
-
+            Integer timeInSec = (minutes * 60) + secundes;
+            timeInSeconds.add(timeInSec);
+            runnersA.add((String) nextRunner.name);
         }
     }
 
@@ -81,30 +60,39 @@ public class Data {
             int stringThirdLength = thirdShoot.length();
 
             int miss1 = 0;
+            Character check = new Character('o');
+
             for (int i = 0; i < stringFirstLength; i++) {
                 Character chr = firstShoot.charAt(i);
-                Character check = new Character('o');
                 if (chr.equals(check)) {
                     miss1 += 10;
                 }
             }
             for (int i = 0; i < stringSecondLength; i++) {
                 Character chr = secondShoot.charAt(i);
-                Character check = new Character('o');
                 if (chr.equals(check)) {
                     miss1 += 10;
                 }
             }
 
-            for(int i = 0; i < stringThirdLength; i++ ) {
+            for (int i = 0; i < stringThirdLength; i++) {
                 Character chr = thirdShoot.charAt(i);
-                Character check = new Character('o');
                 if (chr.equals(check)) {
                     miss1 += 10;
                 }
             }
-        shootingResults.add(miss1);
+            shootingResults.add(miss1);
         }
-        System.out.println(shootingResults);
+    }
+
+    public void finalTime() {
+        int size = runnersR.size();
+        for (int i = 0; i < size; i++) {
+            totalTime.add(timeInSeconds.get(i) + shootingResults.get(i));
+            runnersMap.put(runnersA.get(i), totalTime.get(i));
+        }
+        for (Map.Entry<String, Integer> stringIntegerEntry : runnersMap.entrySet()) {
+            System.out.println(stringIntegerEntry);
+        }
     }
 }

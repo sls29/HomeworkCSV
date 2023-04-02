@@ -12,10 +12,8 @@ public class App {
         Data data = new Data();
 
         data.getDataFromCSV();
-        data.showRunners();
-        data.getRunnersTime();
-        data.showRunnersTime();
         data.timeInSeconds();
         data.runnersShoots();
+        data.finalTime();
     }
 }
