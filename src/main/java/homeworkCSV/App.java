@@ -12,8 +12,15 @@ public class App {
         Data data = new Data();
 
         data.getDataFromCSV();
+
         data.timeInSeconds();
+
         data.runnersShoots();
+
         data.finalTime();
+
+        data.timeInString();
+
+        data.standing();
     }
 }
