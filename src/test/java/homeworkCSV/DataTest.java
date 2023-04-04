@@ -27,6 +27,7 @@ class DataTest {
             assertEquals(1, runnersR.size());
     }
 
+
 //        @org.junit.jupiter.api.Test
 //        void runnersShoots () {
 //            LinkedList<Runner> runnersR = new LinkedList<>();

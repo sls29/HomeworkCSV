@@ -26,11 +26,13 @@ public class Runner {
         this.totalTime = totalTime;
     }
 
+    
     public String toString(){
         System.out.println(number);
         System.out.println(name);
         System.out.println(firstShooting);
     return null;
+    
     }
 }
 

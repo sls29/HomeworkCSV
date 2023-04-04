@@ -50,6 +50,7 @@ public class Data {
         }
     }
 
+
     public void runnersShoots() {
         for (Runner nextRunner : runnersR) {
             runnersA.add((String) nextRunner.name);
