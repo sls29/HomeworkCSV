@@ -118,11 +118,13 @@ public class Data {
         int size = totalTimeS.size();
         for (int i = 0; i < size; i++) {
             runnersMap.put(runnersA.get(i), totalTimeS.get(i));
+        }
 
-            for (Map.Entry<String, String> entry : runnersMap.entrySet()) {
+        for (Map.Entry<String, String> entry : runnersMap.entrySet()) {
                 list.add(entry.getValue());
-            }
-            list.sort(comparator);
+        }
+
+        list.sort(comparator);
             for (String str : list) {
                 for (Map.Entry<String, String> entry : runnersMap.entrySet()) {
                     if (entry.getValue().equals(str)) {
@@ -131,7 +133,7 @@ public class Data {
                 }
             }
 
-        }
+
         System.out.println(runnersMap);
         System.out.println(standingMap);
 //
