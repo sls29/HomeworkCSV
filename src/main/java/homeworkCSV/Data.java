@@ -1,6 +1,5 @@
 package homeworkCSV;
 
-import java.awt.List;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
@@ -10,12 +9,15 @@ public class Data {
     ArrayList<String> dataArray = new ArrayList<>();
     LinkedList<String> runners = new LinkedList<>();
     LinkedList<Runner> runnersR = new LinkedList<>();
-    HashMap<String, String> runnersMap = new HashMap<>();
     ArrayList<Integer> timeInSeconds = new ArrayList<>();
     ArrayList<Integer> shootingResults = new ArrayList<>();
     ArrayList<Integer> totalTime = new ArrayList<>();
     ArrayList<String> totalTimeS = new ArrayList<>();
     ArrayList<String> runnersA = new ArrayList<>();
+    HashMap<String, String> runnersMap = new HashMap<>();
+    LinkedHashMap<String, String> standingMap = new LinkedHashMap<>();
+    ArrayList<String> list = new ArrayList<>();
+
 
     public void getDataFromCSV() throws FileNotFoundException {
 
@@ -98,6 +100,7 @@ public class Data {
         }
 
     }
+
     public void timeInString() {
         int size = totalTime.size();
         for (int i = 0; i < size; i++) {
@@ -109,16 +112,36 @@ public class Data {
     }
 
     public void standing() {
+
+        Comparator<String> comparator = String::compareTo;
+
         int size = totalTimeS.size();
-        for (int i = 0; i < size; i++ ){
+        for (int i = 0; i < size; i++) {
             runnersMap.put(runnersA.get(i), totalTimeS.get(i));
+
+            for (Map.Entry<String, String> entry : runnersMap.entrySet()) {
+                list.add(entry.getValue());
+            }
+            list.sort(comparator);
+            for (String str : list) {
+                for (Map.Entry<String, String> entry : runnersMap.entrySet()) {
+                    if (entry.getValue().equals(str)) {
+                        runnersMap.put(entry.getKey(), str);
+                    }
+                }
+            }
+
         }
-        System.out.println(" ");
-        System.out.println("Final Standing");
-        System.out.println("______________________");
-        for (Map.Entry<String, String> stringIntegerEntry : runnersMap.entrySet()) {
-            System.out.println(stringIntegerEntry);
-        }
-        System.out.println("______________________");
+        System.out.println(runnersMap);
+//
+//        }
+//        System.out.println(" ");
+//        System.out.println("Final Standing");
+//        System.out.println("______________________");
+//        for (Map.Entry<String, String> stringIntegerEntry : runnersMap.entrySet()) {
+//            System.out.println(stringIntegerEntry);
+//        }
+//        System.out.println("______________________");
+//    }
     }
 }
