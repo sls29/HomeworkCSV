@@ -25,8 +25,7 @@ public class Data {
 
         try {
             scanner = new Scanner(new File(
-                    "data.csv"));
-        scanner.useDelimiter(System.getProperty("line.separator"));
+                    "data.csv"));scanner.useDelimiter(System.getProperty("line.separator"));
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
