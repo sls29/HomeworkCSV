@@ -14,6 +14,8 @@ public class App {
 
         data.getDataFromCSV();
 
+        data.getRunner();
+
         data.timeInSeconds();
 
         data.runnersShoots();

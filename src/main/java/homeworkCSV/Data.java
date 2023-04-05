@@ -22,9 +22,11 @@ public class Data {
     public void getDataFromCSV() throws FileNotFoundException {
 
         Scanner scanner = null;
+
         try {
             scanner = new Scanner(new File(
-                    "/home/think/IdeaProjects/CSVhomework/data.csv"));
+                    "data.csv"));
+        scanner.useDelimiter(System.getProperty("line.separator"));
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -34,6 +36,9 @@ public class Data {
             dataArray.add(scanner.nextLine());
         }
         scanner.close();
+    }
+
+    public void getRunner() {
 
         for (String s : dataArray) {
             String[] runner = s.split(",");
@@ -134,7 +139,7 @@ public class Data {
             }
 
 
-        System.out.println(runnersMap);
+//        System.out.println(runnersMap);
         System.out.println(standingMap);
 //
 //        }
