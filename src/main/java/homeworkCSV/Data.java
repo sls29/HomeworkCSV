@@ -126,13 +126,14 @@ public class Data {
             for (String str : list) {
                 for (Map.Entry<String, String> entry : runnersMap.entrySet()) {
                     if (entry.getValue().equals(str)) {
-                        runnersMap.put(entry.getKey(), str);
+                        standingMap.put(entry.getKey(), str);
                     }
                 }
             }
 
         }
         System.out.println(runnersMap);
+        System.out.println(standingMap);
 //
 //        }
 //        System.out.println(" ");
