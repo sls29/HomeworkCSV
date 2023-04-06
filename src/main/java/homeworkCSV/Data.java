@@ -28,31 +28,37 @@ public class Data {
                     "data.csv"));
         scanner.useDelimiter(System.getProperty("line.separator"));
         } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+            System.out.println("File not found!");
+
         }
 
-        scanner.hasNextLine();
-        while (scanner.hasNextLine()) {
-            dataArray.add(scanner.nextLine());
+        try {
+            scanner.hasNextLine();
+            while (scanner.hasNextLine()) {
+                dataArray.add(scanner.nextLine());
+            }
+            scanner.close();
+        } catch (NullPointerException e) {
+            System.out.printf("Incorrect data!");
+
         }
-        scanner.close();
     }
 
     public void getRunner() {
 
-        for (String s : dataArray) {
-            String[] runner = s.split(",");
-            runners.add(Arrays.toString(runner));
-            runnersR.add(new Runner(Integer.parseInt(runner[0]), runner[1], runner[2],
-                    runner[3], runner[4], runner[5], runner[6], null));
+        for (String line : dataArray) {
+            String[] runnerData = line.split(",");
+            runners.add(Arrays.toString(runnerData));
+            runnersR.add(new Runner(Integer.parseInt(runnerData[0]), runnerData[1], runnerData[2],
+                    runnerData[3], runnerData[4], runnerData[5], runnerData[6], null));
         }
     }
 
     public void timeInSeconds() {
         for (Runner nextRunner : runnersR) {
             int minutes = Integer.parseInt(((String) nextRunner.time).substring(0, 2));
-            int secundes = Integer.parseInt(((String) nextRunner.time).substring(3));
-            int timeInSec = (minutes * 60) + secundes;
+            int seconds = Integer.parseInt(((String) nextRunner.time).substring(3));
+            int timeInSec = (minutes * 60) + seconds;
             timeInSeconds.add(timeInSec);
         }
     }
@@ -101,9 +107,7 @@ public class Data {
         int size = runnersR.size();
         for (int i = 0; i < size; i++) {
             totalTime.add(timeInSeconds.get(i) + shootingResults.get(i));
-
         }
-
     }
 
     public void timeInString() {
