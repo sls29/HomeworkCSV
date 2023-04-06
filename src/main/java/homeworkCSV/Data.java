@@ -139,17 +139,8 @@ public class Data {
             }
 
 
-//        System.out.println(runnersMap);
+        System.out.println(" ");
+        System.out.println("------- Final Results -------");
         System.out.println(standingMap);
-//
-//        }
-//        System.out.println(" ");
-//        System.out.println("Final Standing");
-//        System.out.println("______________________");
-//        for (Map.Entry<String, String> stringIntegerEntry : runnersMap.entrySet()) {
-//            System.out.println(stringIntegerEntry);
-//        }
-//        System.out.println("______________________");
-//    }
     }
 }
