@@ -16,14 +16,9 @@ public class App {
 
         data.getRunner();
 
-        data.timeInSeconds();
+        data.calculateTime();
 
-        data.runnersShoots();
+        data.finalStanding();
 
-        data.finalTime();
-
-        data.timeInString();
-
-        data.standing();
     }
 }

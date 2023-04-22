@@ -18,10 +18,9 @@ class DataTest {
         Data data = new Data();
             Runner runner1 = new Runner(1, "John Doe",
                     "US", "20:30", "xxoox",
-                    "xxxxo", "oxxxx", null);
+                    "xxxxo", "oxxxx");
 
             runnersR.add(runner1);
-            data.timeInSeconds();
 
 
             assertEquals(1, runnersR.size());

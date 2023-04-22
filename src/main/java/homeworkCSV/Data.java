@@ -9,15 +9,6 @@ public class Data {
     ArrayList<String> dataArray = new ArrayList<>();
     LinkedList<String> runners = new LinkedList<>();
     LinkedList<Runner> runnersR = new LinkedList<>();
-    ArrayList<Integer> timeInSeconds = new ArrayList<>();
-    ArrayList<Integer> shootingResults = new ArrayList<>();
-    ArrayList<Integer> totalTime = new ArrayList<>();
-    ArrayList<String> totalTimeS = new ArrayList<>();
-    ArrayList<String> runnersA = new ArrayList<>();
-    HashMap<String, String> runnersMap = new HashMap<>();
-    LinkedHashMap<String, String> standingMap = new LinkedHashMap<>();
-    ArrayList<String> list = new ArrayList<>();
-
 
     public void getDataFromCSV() throws FileNotFoundException {
 
@@ -29,7 +20,6 @@ public class Data {
         scanner.useDelimiter(System.getProperty("line.separator"));
         } catch (FileNotFoundException e) {
             System.out.println("File not found!");
-
         }
 
         try {
@@ -39,38 +29,30 @@ public class Data {
             }
             scanner.close();
         } catch (NullPointerException e) {
-            System.out.printf("Incorrect data!");
-
+            System.out.printf("Incorrect data!" + e.getMessage());
         }
     }
 
     public void getRunner() {
-
         for (String line : dataArray) {
             String[] runnerData = line.split(",");
             runners.add(Arrays.toString(runnerData));
             runnersR.add(new Runner(Integer.parseInt(runnerData[0]), runnerData[1], runnerData[2],
-                    runnerData[3], runnerData[4], runnerData[5], runnerData[6], null));
+                    runnerData[3], runnerData[4], runnerData[5], runnerData[6]));
         }
     }
 
-    public void timeInSeconds() {
+    public void calculateTime() {
         for (Runner nextRunner : runnersR) {
-            int minutes = Integer.parseInt(((String) nextRunner.time).substring(0, 2));
-            int seconds = Integer.parseInt(((String) nextRunner.time).substring(3));
+
+            int minutes = Integer.parseInt(nextRunner.time.substring(0, 2));
+            int seconds = Integer.parseInt(nextRunner.time.substring(3));
             int timeInSec = (minutes * 60) + seconds;
-            timeInSeconds.add(timeInSec);
-        }
-    }
+            nextRunner.time = String.valueOf(timeInSec);
 
-
-    public void runnersShoots() {
-        for (Runner nextRunner : runnersR) {
-            runnersA.add((String) nextRunner.name);
-
-            String firstShoot = (String) nextRunner.firstShooting;
-            String secondShoot = (String) nextRunner.secondShooting;
-            String thirdShoot = (String) nextRunner.thirdShooting;
+            String firstShoot = nextRunner.firstShooting;
+            String secondShoot =nextRunner.secondShooting;
+            String thirdShoot = nextRunner.thirdShooting;
 
             int stringFirstLength = firstShoot.length();
             int stringSecondLength = secondShoot.length();
@@ -86,6 +68,7 @@ public class Data {
                     penalityForMissedShoots += 10;
                 }
             }
+
             for (int i = 0; i < stringSecondLength; i++) {
                 Character chr = secondShoot.charAt(i);
                 if (chr.equals(check)) {
@@ -99,52 +82,22 @@ public class Data {
                     penalityForMissedShoots += 10;
                 }
             }
-            shootingResults.add(penalityForMissedShoots);
+
+            nextRunner.time = String.valueOf(Integer.parseInt(nextRunner.time) + penalityForMissedShoots);
+            int minutesToString = Integer.parseInt(nextRunner.time) / 60;
+            int secondsToString = Integer.parseInt(nextRunner.time) % 60;
+
+            nextRunner.time = String.valueOf(minutesToString) + ":" + String.valueOf(secondsToString);
         }
     }
 
-    public void finalTime() {
-        int size = runnersR.size();
-        for (int i = 0; i < size; i++) {
-            totalTime.add(timeInSeconds.get(i) + shootingResults.get(i));
+    public void finalStanding() {
+        Collections.sort(runnersR, new TimeComparator());
+        System.out.println("---Final Standing---");
+        for (Runner nextRunner : runnersR) {
+            System.out.println(nextRunner);
         }
+        System.out.println("--------------------");
     }
 
-    public void timeInString() {
-        int size = totalTime.size();
-        for (int i = 0; i < size; i++) {
-            String minutes = Integer.toString(totalTime.get(i) / 60);
-            String seconds = Integer.toString(totalTime.get(i) % 60);
-            String timeString = " " + minutes + ":" + seconds + ".";
-            totalTimeS.add(timeString);
-        }
-    }
-
-    public void standing() {
-
-        Comparator<String> comparator = String::compareTo;
-
-        int size = totalTimeS.size();
-        for (int i = 0; i < size; i++) {
-            runnersMap.put(runnersA.get(i), totalTimeS.get(i));
-        }
-
-        for (Map.Entry<String, String> entry : runnersMap.entrySet()) {
-                list.add(entry.getValue());
-        }
-
-        list.sort(comparator);
-            for (String str : list) {
-                for (Map.Entry<String, String> entry : runnersMap.entrySet()) {
-                    if (entry.getValue().equals(str)) {
-                        standingMap.put(entry.getKey(), str);
-                    }
-                }
-            }
-
-
-        System.out.println(" ");
-        System.out.println("------- Final Results -------");
-        System.out.println(standingMap);
-    }
 }
