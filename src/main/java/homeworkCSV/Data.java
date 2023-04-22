@@ -37,6 +37,7 @@ public class Data {
         for (String line : dataArray) {
             String[] runnerData = line.split(",");
             runners.add(Arrays.toString(runnerData));
+
             runnersR.add(new Runner(Integer.parseInt(runnerData[0]), runnerData[1], runnerData[2],
                     runnerData[3], runnerData[4], runnerData[5], runnerData[6]));
         }
@@ -92,7 +93,7 @@ public class Data {
     }
 
     public void finalStanding() {
-        Collections.sort(runnersR, new TimeComparator());
+        runnersR.sort(new TimeComparator());
         System.out.println("---Final Standing---");
         for (Runner nextRunner : runnersR) {
             System.out.println(nextRunner);
